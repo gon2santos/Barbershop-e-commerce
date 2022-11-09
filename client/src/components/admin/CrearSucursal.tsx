@@ -1,8 +1,9 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import useHeaders from "../../app/header";
 import { useAppDispatch } from "../../app/hooks";
-import { useState } from "react";
-import { createOffice } from "../slices/admin";
 import { buttonHover } from "../NavBar";
+import { createOffice } from "../slices/admin";
 
 export interface inputs {
   lat: 0;
@@ -13,6 +14,8 @@ export interface inputs {
 const CrearOffice = () => {
   const token = JSON.parse(window.localStorage.getItem("token") || "{}");
   const dispatch = useAppDispatch();
+  const header = useHeaders(token);
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     lat: 0,
     long: 0,
@@ -33,7 +36,8 @@ const CrearOffice = () => {
     if (!inputs.location || !inputs.lat || !inputs.long) {
       alert("Por favor asegurate de completar todos los campos");
     } else {
-      dispatch(createOffice(inputs));
+      dispatch(createOffice(header.headers, inputs));
+      navigate("/admin/offices");
     }
   };
 

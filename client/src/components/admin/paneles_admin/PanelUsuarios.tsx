@@ -128,7 +128,7 @@ const PanelUsuarios = () => {
                     />
                     <Link
                       className="justify-self-end mr-3 text-blue-700"
-                      to={`/admin/compras/${data._id}`}
+                      to={`/user/mis-compras/${data._id}`}
                     >
                       Ver historial de compra
                     </Link>
