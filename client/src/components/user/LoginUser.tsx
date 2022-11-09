@@ -65,9 +65,9 @@ export default function LoginUser() {
     e.preventDefault();
     var verified = speakeasy.totp.verify({
       secret: secret,
-      encoding: 'ascii',
-      token: twofaCode
-    })
+      encoding: "ascii",
+      token: twofaCode,
+    });
     if (verified) {
       SetshowTwoFa("visibility: hidden");
       dispatch(setTwoFaState({ twofa: false, secret: "" }));
@@ -79,8 +79,7 @@ export default function LoginUser() {
       setPwdErr("");
       setPassword("");
       setUserName("");
-    }
-    else {
+    } else {
       alert("Codigo incorrecto");
     }
   };
@@ -89,8 +88,14 @@ export default function LoginUser() {
   const twofa = useSelector((state: any) => state.logIn.twoFaEnabled);
   const secret = useSelector((state: any) => state.logIn.secret);
 
-  useEffect(() => { if (logeado) navigate("/") }, [logeado]);
-  useEffect(() => { if (twofa) { SetshowTwoFa("visibility: visible bg-orange-100 p-4 rounded-lg") } }, [twofa]);
+  useEffect(() => {
+    if (logeado) navigate("/");
+  }, [logeado]);
+  useEffect(() => {
+    if (twofa) {
+      SetshowTwoFa("visibility: visible bg-orange-100 p-4 rounded-lg");
+    }
+  }, [twofa]);
 
   const handleForgotPass = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -159,36 +164,46 @@ export default function LoginUser() {
               value={password}
             />
 
-            <button
-              className="cursor-pointer"
-              onClick={(e) => handleForgotPass(e)}
-            >
-              Olvidé mi contraseña
-            </button>
+            {user.google_account ? (
+              <button
+                className="cursor-pointer"
+                onClick={(e) => handleForgotPass(e)}
+              >
+                Olvidé mi contraseña
+              </button>
+            ) : (
+              <p></p>
+            )}
 
             <button
               className={`${buttonStyle} lg:w-[75%] mt-7 mb-3 lg:mx-10 justify-self-center py-3 lg:rounded-lg text-white w-full `}
-              onClick={(e) => handleSubmit(e)}>
+              onClick={(e) => handleSubmit(e)}
+            >
               Ingresar
             </button>
 
-            <div className={`${showTwoFa}`}>
-              <span>2FA habilitado: ingrese su codigo</span>
-              <input
-                type="text"
-                placeholder="2 Factor Authentication Code"
-                className="mt-5 border-2 border-[#222222] pl-4 block w-full  bg-gray-100 h-11 rounded-lg shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0 appearance-none"
-                name="twofa"
-                onChange={(event) => {
-                  setTwofaCode(event.target.value);
-                }}
-              />
-              <button
-                className={`bg-[#7db32d] w-[75%] mx-10 justify-self-center py-3 rounded-lg text-white lg:w-[75%] mt-7 lg:mx-10 justify-self-center py-3 lg:rounded-lg text-white w-full `}
-                onClick={(e) => handleVerify(e)}>
-                Validar Codigo
-              </button>
-            </div>
+            {user.google_account ? (
+              <div className={`${showTwoFa}`}>
+                <span>2FA habilitado: ingrese su codigo</span>
+                <input
+                  type="text"
+                  placeholder="2 Factor Authentication Code"
+                  className="mt-5 border-2 border-[#222222] pl-4 block w-full  bg-gray-100 h-11 rounded-lg shadow-lg hover:bg-blue-100 focus:bg-blue-100 focus:ring-0 appearance-none"
+                  name="twofa"
+                  onChange={(event) => {
+                    setTwofaCode(event.target.value);
+                  }}
+                />
+                <button
+                  className={`bg-[#7db32d] w-[75%] mx-10 justify-self-center py-3 rounded-lg text-white lg:w-[75%] mt-7 lg:mx-10 justify-self-center py-3 lg:rounded-lg text-white w-full `}
+                  onClick={(e) => handleVerify(e)}
+                >
+                  Validar Codigo
+                </button>
+              </div>
+            ) : (
+              <p></p>
+            )}
 
             <div className="flex mt-7 items-center text-center">
               <hr className="border-gray-300 border w-full rounded-md" />
