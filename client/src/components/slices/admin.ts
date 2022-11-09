@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { redirect } from "react-router";
 import { AppThunk } from "../../app/store";
 import { products } from "./productSlice";
 
@@ -60,16 +61,18 @@ export const deleteProd = (
 };
 
 export const createOffice = (
-  // header: { token: string | null },
+  header: { token: string | null },
   oficina: object
 ): AppThunk => {
   return async () => {
     try {
       await axios.post(
         `${process.env.REACT_APP_BASE_URL}/office/create`,
-        oficina
+        oficina,
+        {
+          headers: header,
+        }
       );
-
       alert("Oficina creada con exito");
     } catch (error) {
       console.log(error);
