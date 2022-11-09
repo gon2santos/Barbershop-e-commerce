@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
 import Footer from "./Footer";
+import logo from  "../imagenes/Logo.png"
 
 export const buttonStyle =
   "m-auto px-3 py-1.5 bg-white rounded-lg border-2 border-black text-black hover:bg-black hover:text-white";
@@ -33,7 +34,11 @@ const Home = () => {
       ) : (
         <p></p>
       )}
+      <div className="bg-white rounded-full m-20 mt-32 bg-contain lg:hidden">
 
+        <img src={logo} className="w-full h-auto" alt="" />
+
+      </div>
       <div className="h-[75vh]">
         <Link
           className="bg-[#855C20] py-4 px-4 font-bold text-3xl lg:block absolute hidden left-16 bottom-48"
