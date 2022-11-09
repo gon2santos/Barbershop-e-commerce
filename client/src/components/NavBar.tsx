@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { MdFavoriteBorder } from "react-icons/md";
-import { RiShoppingBasket2Line } from "react-icons/ri";
+import { BiShoppingBag } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import logo from "../imagenes/Logo.png";
@@ -131,21 +131,21 @@ const NavBar = () => {
           className="hover:text-[#855C20] relative"
           to={"/products/shopping-cart"}
         >
-          <p className="absolute w-6 text-sm text-center m-auto bg-black text-white rounded-full right-[-.8rem] top-0">
+          <p className="absolute w-4 text-sm text-center m-auto bg-black text-white rounded-full right-[-.8rem] top-0">
             {cant}
           </p>
-          <RiShoppingBasket2Line size={40} />
+          <BiShoppingBag size={30} />
         </Link>
         <Link
           className="hover:text-[#855C20] relative"
           title="ir a Favoritos"
           to={"/products/favorites"}
         >
-          <p className="absolute w-6 text-sm text-center m-auto bg-black text-white rounded-full right-[-.8rem] top-0">
+          <p className="absolute w-4 text-sm text-center m-auto bg-black text-white rounded-full right-[-.8rem] top-0">
             {favs.length}
           </p>
 
-          <MdFavoriteBorder size={40} className="" />
+          <MdFavoriteBorder size={30} className="" />
         </Link>
       </div>
     </div>
