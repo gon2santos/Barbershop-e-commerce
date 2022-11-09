@@ -98,7 +98,7 @@ const Reserve = () => {
                       onClick={(e) => serviceSelect(e)}
                       className={`${
                         turno.service === "Corte" ? selected : ""
-                      }  px-4 py-1  m-auto my-3 text-black bg-white border border-black`}
+                      }  px-4 py-1  m-auto my-3 bg-white border border-black`}
                     >
                       Corte
                     </button>
