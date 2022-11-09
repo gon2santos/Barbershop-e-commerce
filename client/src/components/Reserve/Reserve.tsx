@@ -10,29 +10,27 @@ import { fetchAllBarbers } from "../slices/barbers";
 import { fetchAllOffices } from "../slices/offices";
 import BarberCard from "./BarberCard";
 
-const initialTurn = {
-  service: "",
-
-  date: new Date(Date.now()),
-  barber: "",
-  office: "",
-  block: 0,
-};
 const selected = "bg-black text-white hover:ease-in-out duration-300";
 
 const Reserve = () => {
+  const user: any = JSON.parse(window.localStorage.getItem("user") || "0");
+
+  const initialTurn = {
+    service: "",
+    user: user._id,
+    date: new Date(Date.now()),
+    barber: "",
+    office: "",
+    block: 0,
+  };
+  console.log(initialTurn);
   const dispatch = useAppDispatch();
   const [turno, setTurno] = useState(initialTurn);
-  const [user, setUser]=useState(JSON.parse(window.localStorage.getItem("user") || "0"))
 
   useEffect(() => {
-        dispatch(fetchAllBarbers());
-    dispatch(fetchAllOffices());    
+    dispatch(fetchAllBarbers());
+    dispatch(fetchAllOffices());
   }, []);
-
-  useEffect(()=>{
-    setUser(JSON.parse(window.localStorage.getItem("user") || "0"));
-  },[window.localStorage.getItem("user")])
 
   const [date, setDate] = useState(new Date(Date.now()));
   const data = useAppSelector((state: RootState) => state.barbers);
@@ -78,7 +76,7 @@ const Reserve = () => {
   //==============================0render==============================
   return (
     <div className="lg:bg-white lg:bg-turnos-banner bg-no-repeat lg:pt-32 pb-20 bg-cover min-h-screen align-items- ">
-      {user? (
+      {user ? (
         <>
           <h2 className="flex  justify-center my-auto text-5xl text-white mb-12">
             PEDI TU TURNO
