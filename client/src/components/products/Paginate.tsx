@@ -1,5 +1,5 @@
 // import { AiFillLeftSquare, AiFillRightSquare } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 
 interface props {
@@ -16,7 +16,7 @@ interface props {
 
 const Paginate = (props: props) => {
   const [active, setActive] = useState(0);
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
   const pageNumbers: number[] = [];
   for (
     let i = 1;
@@ -25,9 +25,9 @@ const Paginate = (props: props) => {
   ) {
     pageNumbers.push(i);
   }
-useEffect(()=>{
-  setPage(props.currentPage)
-},[props.currentPage])
+  useEffect(() => {
+    setPage(props.currentPage);
+  }, [props.currentPage]);
 
   //==========================handlers=================================0
   const handleNextBtn = () => {

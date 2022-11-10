@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useHeaders from "../../app/header";
 import { useAppDispatch } from "../../app/hooks";
 import { comprar } from "../slices/purchaseOrder";
@@ -28,31 +28,23 @@ const CrearProducto = () => {
       name: productos.productos.name,
     };
   });
+  // if(user.google_account) {const nombre = user.name.split('')}
+
+  const [nom, ap] = user.google_account
+    ? user.name.split(" ")
+    : [user.name, user.lastname];
+
   const [inputs, setInputs] = useState<input>({
-    nombre: "",
-    apellido: "",
-    email: "",
-    tel: "",
-    direccionEnvio: "",
-    localidad: "",
-    CP: 0,
+    nombre: user.google_account ? nom : user.name,
+    apellido: user.google_account ? ap : user.lastname,
+    email: user.email,
+    tel: user.tel,
+    direccionEnvio: user.adress,
+    localidad: user.localidad,
+    CP: user.CD,
   });
 
   const [errors, setErrors] = useState<any>({});
-
-  useEffect(() => {
-    setInputs((prev) => ({
-       nombre:user.name,
-       apellido:user.lastName,
-       email: user.email,
-       tel:user.tel,
-       direccionEnvio:user.adress,
-       localidad:user.localidad,
-       CP:user.CD,  
-       }));
-    return(clearState())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   //================handlers===========
   const validate = (input: any) => {
@@ -126,6 +118,7 @@ const CrearProducto = () => {
       alert("Debe completar los campos requeridos");
     } else {
       dispatch(comprar(header.headers, laCompra));
+      clearState();
     }
   };
 

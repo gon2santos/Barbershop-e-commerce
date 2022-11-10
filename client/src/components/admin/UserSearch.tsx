@@ -3,7 +3,7 @@ import { BsSearch } from "react-icons/bs";
 import { useAppDispatch } from "../../app/hooks";
 import { searchUser } from "../slices/admin";
 
-const UserSearch = ({setCurrentPage}) => {
+const UserSearch = ({ setCurrentPage }: any) => {
   const [searchParam, setSearchParam] = useState("");
   const dispatch = useAppDispatch();
 
@@ -12,9 +12,8 @@ const UserSearch = ({setCurrentPage}) => {
     if (searchParam.length) {
       dispatch(searchUser(searchParam));
       setSearchParam("");
-      
     }
-    setCurrentPage(1)
+    setCurrentPage(1);
   }
 
   function handleChange(e: { target: { value: string; name: string } }) {

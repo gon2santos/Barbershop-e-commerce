@@ -3,7 +3,7 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { confirmOrders } from "../slices/purchaseOrder";
+import { confirmOrders, getCantCarrito } from "../slices/purchaseOrder";
 const Cofirmacion = () => {
   let loading = true;
   const dispatch = useAppDispatch();
@@ -17,8 +17,7 @@ const Cofirmacion = () => {
       loading = false;
     }
     window.localStorage.removeItem("product");
-    getCantCarrito() 
-
+    getCantCarrito();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
