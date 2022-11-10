@@ -31,7 +31,7 @@ const Home = () => {
             Sign in
           </Link>
         </div>
-      ) : (
+      ) : ( 
         <p></p>
       )}
       <div className="bg-white rounded-full m-20 mt-32 bg-contain lg:hidden">
