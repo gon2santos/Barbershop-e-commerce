@@ -121,6 +121,7 @@ export const createProd = (
           headers: header,
         }
       );
+      alert("Producto creado con exito");
     } catch (error) {
       console.log(error);
     }
