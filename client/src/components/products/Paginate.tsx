@@ -16,6 +16,7 @@ interface props {
 
 const Paginate = (props: props) => {
   const [active, setActive] = useState(0);
+  const [page, setPage] = useState(1)
   const pageNumbers: number[] = [];
   for (
     let i = 1;
@@ -24,23 +25,26 @@ const Paginate = (props: props) => {
   ) {
     pageNumbers.push(i);
   }
+useEffect(()=>{
+  setPage(props.currentPage)
+},[props.currentPage])
 
   //==========================handlers=================================0
   const handleNextBtn = () => {
-    if (pageNumbers.length > props.currentPage) {
+    if (pageNumbers.length > page) {
       setActive((prev: number) => prev + 1);
       props.setCurrentPage((prev: number) => prev + 1);
-      if (props.currentPage + 1 > props.maxPageNumberLimit) {
+      if (page + 1 > props.maxPageNumberLimit) {
         props.setMaxPageNumberLimit(props.maxPageNumberLimit + props.pageLimit);
         props.setMinPageNumberLimit(props.minPageNumberLimit + props.pageLimit);
       }
     }
   };
   const handlePrevBtn = () => {
-    if (1 < props.currentPage) {
+    if (1 < page) {
       setActive((prev: number) => prev - 1);
       props.setCurrentPage((prev: number) => prev - 1);
-      if ((props.currentPage - 1) % props.pageLimit === 0) {
+      if ((page - 1) % props.pageLimit === 0) {
         props.setMaxPageNumberLimit(props.maxPageNumberLimit - props.pageLimit);
         props.setMinPageNumberLimit(props.minPageNumberLimit - props.pageLimit);
       }

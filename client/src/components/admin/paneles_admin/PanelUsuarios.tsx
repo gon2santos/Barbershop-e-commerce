@@ -39,7 +39,6 @@ const PanelUsuarios = () => {
     } else {
       dispatch(banearUsuario(header.headers, id));
     }
-    handleRestoreUsers();
   };
 
   const handleAdmin = (id: string, rol: string) => {
@@ -48,15 +47,15 @@ const PanelUsuarios = () => {
     } else {
       dispatch(hacerAdmin(header.headers, id, rol));
     }
-    handleRestoreUsers();
   };
 
   const handleRestoreUsers = () => {
     dispatch(getUsers(header.headers));
+    setCurrentPage(1)
   };
 
   //==============render================================
-  if ([] instanceof Array) {
+  if (users instanceof Array) {
     return (
       <div className=" bg-white pb-8 bg-admin-banner bg-no-repeat bg-contain h-full">
         <h1 className=" text-white justify-center py-20 mb-2 text-5xl font-bold flex flex-col align-middle items-center">
@@ -78,7 +77,7 @@ const PanelUsuarios = () => {
                   }}
                   size={25}
                 />
-                <UserSearch />
+                <UserSearch setCurrentPage={setCurrentPage}/>
               </div>
 
               {currentProducts.map((data) => {
