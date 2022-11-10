@@ -3,13 +3,16 @@ import { BsArrowDownShort, BsArrowUpShort } from "react-icons/bs";
 import { useAppDispatch } from "../../app/hooks";
 import { orderByName, orderByPrice } from "../slices/productSlice";
 
-export const OrderingByName = (hidden: { hidden: boolean }) => {
+export const OrderingByName = ({ hidden, resetPage }: any) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (event: any) => {
-    if (event.target.value.length) dispatch(orderByName(event.target.value));
+    if (event.target.value.length) {
+      dispatch(orderByName(event.target.value));
+      resetPage();
+    }
   };
-  const h = hidden.hidden ? "" : "hidden";
+  const h = hidden ? "" : "hidden";
 
   return (
     <div className={`flex flex-col items-start gap-8 ${h}`}>
@@ -23,13 +26,16 @@ export const OrderingByName = (hidden: { hidden: boolean }) => {
   );
 };
 
-export const OrderingByPrice = (hidden: { hidden: boolean }) => {
+export const OrderingByPrice = ({ hidden, resetPage }: any) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (event: any) => {
-    if (event.target.value.length) dispatch(orderByPrice(event.target.value));
+    if (event.target.value.length) {
+      dispatch(orderByPrice(event.target.value));
+      resetPage();
+    }
   };
-  const h = hidden.hidden ? "" : "hidden";
+  const h = hidden ? "" : "hidden";
 
   return (
     <div className={`flex flex-col items-start gap-8 ${h}`}>
