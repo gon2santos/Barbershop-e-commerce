@@ -82,7 +82,7 @@ const NavBar = () => {
             to={"/contacto"}
             className={`${buttonHover} px-4 py-1 rounded-lg`}
           >
-            Contacto
+            Sobre Nosotros
           </Link>
           {adminAuth && (
             <>

@@ -56,29 +56,11 @@ const PanelCompras = () => {
 
   const handleEstado = (id: string, newState: string) => {
     if (newState === "Completa") {
-      if (
-        window.confirm(
-          `¿Esta seguro de querer cambiar el estado de orden ${id} a ${newState}`
-        )
-      ) {
-        dispatch(cambiarEstadoOrdenCompleta(header.headers, id));
-      }
+      dispatch(cambiarEstadoOrdenCompleta(header.headers, id));
     } else if (newState === "Cancelada") {
-      if (
-        window.confirm(
-          `¿Esta seguro de querer cambiar el estado de orden ${id} a ${newState}`
-        )
-      ) {
-        dispatch(cambiarEstadoOrdenCancelada(header.headers, id));
-      }
+      dispatch(cambiarEstadoOrdenCancelada(header.headers, id));
     } else {
-      if (
-        window.confirm(
-          `¿Esta seguro de querer cambiar el estado de orden ${id} a ${newState}`
-        )
-      ) {
-        dispatch(cambiarEstadoOrden(header.headers, id, newState));
-      }
+      dispatch(cambiarEstadoOrden(header.headers, id, newState));
     }
   };
 
@@ -96,6 +78,7 @@ const PanelCompras = () => {
 
   const handleDespachar = (id: string) => {
     dispatch(despacharOrden(header.headers, id));
+    window.location.reload();
   };
 
   //==========================render================
