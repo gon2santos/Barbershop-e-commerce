@@ -44,6 +44,7 @@ const PanelCompras = () => {
 
   const handleRestore = () => {
     dispatch(getAllOrders(header.headers));
+    currentPage(1)
   };
 
   const handleEstado = (id: string, newState: string) => {
@@ -62,6 +63,7 @@ const PanelCompras = () => {
 
   const handleFilter = (e: any) => {
     dispatch(filterOrderState(e.target.value));
+    setCurrentPage(1)
   };
 
   const handleDespachar = (id: string) => {
@@ -77,7 +79,7 @@ const PanelCompras = () => {
       <div className=" mx-8 bg-white border-2 px-4 border-black rounded-lg">
         <div>
           <div className="flex  gap-8 mt-10">
-            <OrderSearch searchBy={searchBy} />
+            <OrderSearch searchBy={searchBy} setCurrentPage={setCurrentPage}/>
             <select
               className="outline-none"
               onChange={(e) => handleSearchBy(e)}

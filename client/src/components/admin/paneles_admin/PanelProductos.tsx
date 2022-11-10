@@ -72,10 +72,12 @@ const PanelProductos = () => {
     setOrderSelect(true);
     setCateSelect(true);
     dispatch(fetchAllProducts(""));
+    setCurrentPage(1)
   };
 
   const handleOrder = (e: any) => {
     setOrderSelect(false);
+    setCurrentPage(1)
     if (e.target.value === "alfa") {
       dispatch(orderByName("name-asc"));
     } else if (e.target.value === "stock") {

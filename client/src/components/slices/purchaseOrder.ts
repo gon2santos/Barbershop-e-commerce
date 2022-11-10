@@ -40,7 +40,6 @@ export const comprar = (header: object, compra: object) => {
       );
       window.location.href = `${response.data.links[1].href}`;
     } catch (error: any) {
-      console.log(error);
       alert(error.response.data.message);
     }
   };
