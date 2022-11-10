@@ -7,6 +7,7 @@ import { createProd } from "../slices/admin";
 import { categorias } from "../slices/productSlice";
 import axios from "axios";
 import { RiContrastDropLine } from "react-icons/ri";
+import { useNavigate } from "react-router";
 export interface input {
   nombre: string;
   precio: number;
@@ -18,6 +19,7 @@ export interface input {
 }
 
 const CrearProducto = () => {
+  const navigate = useNavigate();
   const token = JSON.parse(window.localStorage.getItem("token") || "{}");
   const header = useHeaders(token);
   const dispatch = useAppDispatch();
@@ -99,6 +101,7 @@ const CrearProducto = () => {
   const handleCreateOrder = () => {
     clearState();
     dispatch(createProd(header.headers, inputs));
+    navigate("/admin/products");
   };
 
   //===================render========================
