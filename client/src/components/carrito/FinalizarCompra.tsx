@@ -41,7 +41,16 @@ const CrearProducto = () => {
   const [errors, setErrors] = useState<any>({});
 
   useEffect(() => {
-    setInputs((prev) => ({ ...prev, email: user.email }));
+    setInputs((prev) => ({
+       nombre:user.name,
+       apellido:user.lastName,
+       email: user.email,
+       tel:user.tel,
+       direccionEnvio:user.adress,
+       localidad:user.localidad,
+       CP:user.CD,  
+       }));
+    return(clearState())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -117,7 +126,6 @@ const CrearProducto = () => {
       alert("Debe completar los campos requeridos");
     } else {
       dispatch(comprar(header.headers, laCompra));
-      clearState();
     }
   };
 
