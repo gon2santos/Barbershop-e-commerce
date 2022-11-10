@@ -7,30 +7,33 @@ import { RootState } from "../../app/store";
 import { buttonHover } from "../NavBar";
 import { postAppointment } from "../slices/appoinment";
 import { fetchAllBarbers } from "../slices/barbers";
+import { yaLog } from "../slices/logIn";
 import { fetchAllOffices } from "../slices/offices";
 import BarberCard from "./BarberCard";
 
+const initialTurn = {
+  service: "",
+
+  date: new Date(Date.now()),
+  barber: "",
+  office: "",
+  block: 0,
+};
 const selected = "bg-black text-white hover:ease-in-out duration-300";
 
 const Reserve = () => {
-  const user: any = JSON.parse(window.localStorage.getItem("user") || "0");
-
-  const initialTurn = {
-    service: "",
-    user: user._id,
-    date: new Date(Date.now()),
-    barber: "",
-    office: "",
-    block: 0,
-  };
-  console.log(initialTurn);
   const dispatch = useAppDispatch();
   const [turno, setTurno] = useState(initialTurn);
+  const [user, setUser]=useState(JSON.parse(window.localStorage.getItem("user") || "0"))
 
   useEffect(() => {
-    dispatch(fetchAllBarbers());
-    dispatch(fetchAllOffices());
+        dispatch(fetchAllBarbers());
+    dispatch(fetchAllOffices());    
   }, []);
+
+  useEffect(()=>{
+    setUser(JSON.parse(window.localStorage.getItem("user") || "0"));
+  },[window.localStorage.getItem("user")])
 
   const [date, setDate] = useState(new Date(Date.now()));
   const data = useAppSelector((state: RootState) => state.barbers);
@@ -76,7 +79,7 @@ const Reserve = () => {
   //==============================0render==============================
   return (
     <div className="lg:bg-white lg:bg-turnos-banner bg-no-repeat lg:pt-32 pb-20 bg-cover min-h-screen align-items- ">
-      {user ? (
+      {user? (
         <>
           <h2 className="flex  justify-center my-auto text-5xl text-white mb-12">
             PEDI TU TURNO
@@ -98,7 +101,7 @@ const Reserve = () => {
                       onClick={(e) => serviceSelect(e)}
                       className={`${
                         turno.service === "Corte" ? selected : ""
-                      }  px-4 py-1  m-auto my-3 bg-white border border-black`}
+                      }  px-4 py-1  m-auto my-3 text-black bg-white border border-black`}
                     >
                       Corte
                     </button>

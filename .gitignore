@@ -1,0 +1,8 @@
+node_modules
+
+/client/package.json
+/client/package-lock.json
+/client/node_modules
+/client/config.ts
+/client/build
+updates
