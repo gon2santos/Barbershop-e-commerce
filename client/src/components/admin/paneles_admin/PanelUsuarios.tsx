@@ -9,8 +9,9 @@ import { banearUsuario, getUsers, hacerAdmin } from "../../slices/admin";
 import { yaLog } from "../../slices/logIn";
 import UserSearch from "../UserSearch";
 
+const user = JSON.parse(window.localStorage.getItem("user") || "{}");
+
 const PanelUsuarios = () => {
-  const user = JSON.parse(window.localStorage.getItem("user") || "{}");
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state: RootState) => state.admin);
   const token = JSON.parse(window.localStorage.getItem("token") || "{}");
@@ -32,31 +33,37 @@ const PanelUsuarios = () => {
   const lastPostIndex = currentPage * productsPerPage;
   const firstPostIndex = lastPostIndex - productsPerPage;
   const currentProducts = users.slice(firstPostIndex, lastPostIndex);
+  const [active, setActive] = useState(0);
+
   //=====================click handlers=====================
-  const handleBanned = (id: string, banned: boolean | undefined) => {
+  const handleBanned = (
+    id: string,
+    user: string,
+    banned: boolean | undefined
+  ) => {
     if (!banned) {
       dispatch(banearUsuario(header.headers, id));
     } else {
       dispatch(banearUsuario(header.headers, id));
     }
-    handleRestoreUsers();
   };
 
-  const handleAdmin = (id: string, rol: string) => {
+  const handleAdmin = (id: string, user: string, rol: string) => {
     if (rol === "user") {
       dispatch(hacerAdmin(header.headers, id, rol));
     } else {
       dispatch(hacerAdmin(header.headers, id, rol));
     }
-    handleRestoreUsers();
   };
 
   const handleRestoreUsers = () => {
     dispatch(getUsers(header.headers));
+    setCurrentPage(1);
+    setActive(0);
   };
 
   //==============render================================
-  if ([] instanceof Array) {
+  if (users instanceof Array) {
     return (
       <div className=" bg-white pb-8 bg-admin-banner bg-no-repeat bg-contain h-full">
         <h1 className=" text-white justify-center py-20 mb-2 text-5xl font-bold flex flex-col align-middle items-center">
@@ -78,7 +85,10 @@ const PanelUsuarios = () => {
                   }}
                   size={25}
                 />
-                <UserSearch />
+                <UserSearch
+                  setCurrentPage={setCurrentPage}
+                  setActive={setActive}
+                />
               </div>
 
               {currentProducts.map((data) => {
@@ -102,12 +112,14 @@ const PanelUsuarios = () => {
                     <input
                       type="checkbox"
                       defaultChecked={data.banned}
-                      onChange={(e) => handleBanned(data._id, data.banned)}
+                      onChange={(e) =>
+                        handleBanned(data._id, data.email, data.banned)
+                      }
                     />
                     <input
                       type="checkbox"
                       defaultChecked={admin}
-                      onChange={(e) => handleAdmin(data._id, rol)}
+                      onChange={(e) => handleAdmin(data._id, data.email, rol)}
                     />
                     <Link
                       className="justify-self-end mr-3 text-blue-700"
@@ -129,6 +141,8 @@ const PanelUsuarios = () => {
               minPageNumberLimit={minPageNumberLimit}
               setMaxPageNumberLimit={setMaxPageNumberLimit}
               setMinPageNumberLimit={setMinPageNumberLimit}
+              active={active}
+              setActive={setActive}
             />
           </div>
         </div>

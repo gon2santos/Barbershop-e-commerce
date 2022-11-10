@@ -49,14 +49,15 @@ export const OrderingByPrice = ({ hidden, resetPage }: any) => {
   );
 };
 
-export const OrderingPriceResp = (hidden: { hidden: boolean }) => {
+export const OrderingPriceResp = ({ hidden, resetPage }: any) => {
   const dispatch = useAppDispatch();
-  const h = hidden.hidden ? "" : "hidden";
+  const h = hidden ? "" : "hidden";
   const [arrow, setArrow] = useState(true);
   const [value, setValue] = useState("barato");
 
   const handleClick = (event: any) => {
     if (event.target.value.length) {
+      resetPage();
       dispatch(orderByPrice(event.target.value));
     }
 
@@ -74,14 +75,15 @@ export const OrderingPriceResp = (hidden: { hidden: boolean }) => {
   );
 };
 
-export const OrderingAlfaResp = (hidden: { hidden: boolean }) => {
+export const OrderingAlfaResp = ({ hidden, resetPage }: any) => {
   const dispatch = useAppDispatch();
-  const h = hidden.hidden ? "" : "hidden";
+  const h = hidden ? "" : "hidden";
   const [arrow, setArrow] = useState(true);
   const [value, setValue] = useState("name-asc");
 
   const handleClick = (event: any) => {
     if (event.target.value.length) {
+      resetPage();
       dispatch(orderByName(event.target.value));
     }
 

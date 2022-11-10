@@ -1,5 +1,3 @@
-// import { AiFillLeftSquare, AiFillRightSquare } from "react-icons/ai";
-import { useState } from "react";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 
 interface props {
@@ -12,10 +10,12 @@ interface props {
   pageLimit: number;
   setMinPageNumberLimit: any;
   minPageNumberLimit: number;
+  setActive: any;
+  active: number;
 }
 
 const Paginate = (props: props) => {
-  const [active, setActive] = useState(0);
+  // const [active, setActive] = useState(props.currentPage);
   const pageNumbers: number[] = [];
   for (
     let i = 1;
@@ -28,7 +28,7 @@ const Paginate = (props: props) => {
   //==========================handlers=================================0
   const handleNextBtn = () => {
     if (pageNumbers.length > props.currentPage) {
-      setActive((prev: number) => prev + 1);
+      props.setActive((prev: number) => prev + 1);
       props.setCurrentPage((prev: number) => prev + 1);
       if (props.currentPage + 1 > props.maxPageNumberLimit) {
         props.setMaxPageNumberLimit(props.maxPageNumberLimit + props.pageLimit);
@@ -38,7 +38,7 @@ const Paginate = (props: props) => {
   };
   const handlePrevBtn = () => {
     if (1 < props.currentPage) {
-      setActive((prev: number) => prev - 1);
+      props.setActive((prev: number) => prev - 1);
       props.setCurrentPage((prev: number) => prev - 1);
       if ((props.currentPage - 1) % props.pageLimit === 0) {
         props.setMaxPageNumberLimit(props.maxPageNumberLimit - props.pageLimit);
@@ -85,10 +85,12 @@ const Paginate = (props: props) => {
               <button
                 key={index}
                 className={`${
-                  active === index ? "text-[#855C20] border-[#855C20]" : ""
+                  props.active === index
+                    ? "text-[#855C20] border-[#855C20]"
+                    : ""
                 }  border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 hover:text-[#855C20] hover:border-[#855C20]`}
                 onClick={() => {
-                  setActive(index);
+                  props.setActive(index);
                   props.setCurrentPage(page);
                 }}
               >

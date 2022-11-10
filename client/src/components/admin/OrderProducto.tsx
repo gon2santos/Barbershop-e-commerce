@@ -22,6 +22,7 @@ const OrderProducto = () => {
   const token = JSON.parse(window.localStorage.getItem("token") || "{}");
   const user = JSON.parse(window.localStorage.getItem("user") || "{}");
   const header = useHeaders(token);
+  const [active, setActive] = useState(0);
 
   //============use effect=================
 
@@ -44,6 +45,8 @@ const OrderProducto = () => {
 
   const handleRestore = () => {
     dispatch(ordersProducto(header.headers, id));
+    setCurrentPage(1);
+    setActive(0);
   };
 
   //==============render================================
@@ -57,7 +60,10 @@ const OrderProducto = () => {
           <div>
             <div className="grid grid-cols-[1.5fr_1fr] gap-8">
               <div className="flex w-[50vw] gap-16  my-8">
-                <OrderSearch />
+                <OrderSearch
+                  setCurrentPage={setCurrentPage}
+                  setActive={setActive}
+                />
 
                 <BsArrowCounterclockwise
                   onClick={() => handleRestore()}
@@ -103,6 +109,8 @@ const OrderProducto = () => {
               minPageNumberLimit={minPageNumberLimit}
               setMaxPageNumberLimit={setMaxPageNumberLimit}
               setMinPageNumberLimit={setMinPageNumberLimit}
+              active={active}
+              setActive={setActive}
             />
           </div>
         </div>

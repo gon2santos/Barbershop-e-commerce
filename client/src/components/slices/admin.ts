@@ -100,7 +100,8 @@ export const borrarOffice = (
 
 export const createProd = (
   header: { token: string | null },
-  data: any
+  data: any,
+  img: any
 ): AppThunk => {
   return async () => {
     try {
@@ -111,17 +112,15 @@ export const createProd = (
       newProd.append("available", data.available);
       newProd.append("description", data.descripcion);
       newProd.append("categories", data.categorias);
-      //newProd.append("image", data.image);
-      newProd.append("image", data.image);
+      newProd.append("image", img[0]);
+
       await axios.post(
         `${process.env.REACT_APP_BASE_URL}/products/create`,
         newProd,
-
         {
           headers: header,
         }
       );
-      alert("Producto creado con exito");
     } catch (error) {
       console.log(error);
     }

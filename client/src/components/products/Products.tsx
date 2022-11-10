@@ -74,14 +74,16 @@ const Products = () => {
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
   const lastPostIndex = currentPage * productsPerPage;
   const firstPostIndex = lastPostIndex - productsPerPage;
+  const [active, setActive] = useState(0);
 
   if (data?.allProducts instanceof Array) {
     const currentProducts = data.allProducts.slice(
       firstPostIndex,
       lastPostIndex
     );
-    const resetPage: any = () => {
+    const resetPage = () => {
       setCurrentPage(1);
+      setActive(0);
     };
 
     //===========================render====================
@@ -109,8 +111,8 @@ const Products = () => {
                 className="ml-6 mt-4"
                 size={30}
               />
-              <OrderingPriceResp hidden={!hideCate} />
-              <OrderingAlfaResp hidden={!hideCate} />
+              <OrderingPriceResp resetPage={resetPage} hidden={!hideCate} />
+              <OrderingAlfaResp resetPage={resetPage} hidden={!hideCate} />
             </div>
             <Categorias resetPage={resetPage} hide={hideCate} />
           </div>
@@ -142,7 +144,7 @@ const Products = () => {
                     />
                   )}
                 </div>
-                <OrderingByName hidden={hideAlfa} resetPage={resetPage} />
+                <OrderingByName resetPage={resetPage} hidden={hideAlfa} />
                 <div className="relative">
                   <p className="underline underline-offset-2">Precio</p>
                   {!hidePrecio ? (
@@ -163,7 +165,7 @@ const Products = () => {
                     />
                   )}
                 </div>
-                <OrderingByPrice hidden={hidePrecio} resetPage={resetPage} />
+                <OrderingByPrice resetPage={resetPage} hidden={hidePrecio} />
               </div>
             </div>
             {currentProducts?.map((data: any) => {
@@ -192,6 +194,8 @@ const Products = () => {
             minPageNumberLimit={minPageNumberLimit}
             setMaxPageNumberLimit={setMaxPageNumberLimit}
             setMinPageNumberLimit={setMinPageNumberLimit}
+            active={active}
+            setActive={setActive}
           />
         </div>
       </div>

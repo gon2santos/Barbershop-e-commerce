@@ -3,7 +3,7 @@ import { BsSearch } from "react-icons/bs";
 import { useAppDispatch } from "../../app/hooks";
 import { searchUser } from "../slices/admin";
 
-const UserSearch = () => {
+const UserSearch = ({ setCurrentPage, setActive }: any) => {
   const [searchParam, setSearchParam] = useState("");
   const dispatch = useAppDispatch();
 
@@ -13,6 +13,8 @@ const UserSearch = () => {
       dispatch(searchUser(searchParam));
       setSearchParam("");
     }
+    setCurrentPage(1);
+    setActive(0);
   }
 
   function handleChange(e: { target: { value: string; name: string } }) {

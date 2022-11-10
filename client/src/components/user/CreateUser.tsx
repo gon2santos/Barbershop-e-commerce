@@ -70,6 +70,7 @@ export default function CreateUser() {
       dispatch(logUp(formUser));
       setFormUser(initialFormUser);
       setWarnToPrint(initialWarnToPrint);
+      navigate('/')
     }
   }
   function loadForm(e: any) {

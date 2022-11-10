@@ -5,9 +5,6 @@ import useHeaders from "../../app/header";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { createProd } from "../slices/admin";
 import { categorias } from "../slices/productSlice";
-import axios from "axios";
-import { RiContrastDropLine } from "react-icons/ri";
-import { useNavigate } from "react-router";
 export interface input {
   nombre: string;
   precio: number;
@@ -15,11 +12,9 @@ export interface input {
   descripcion: string;
   categorias: Array<string>;
   available: boolean;
-  image: string;
 }
 
 const CrearProducto = () => {
-  const navigate = useNavigate();
   const token = JSON.parse(window.localStorage.getItem("token") || "{}");
   const header = useHeaders(token);
   const dispatch = useAppDispatch();
@@ -31,8 +26,8 @@ const CrearProducto = () => {
     descripcion: "",
     categorias: [],
     available: false,
-    image: "",
   });
+  const [img, setImg] = useState();
 
   useEffect(() => {
     dispatch(categorias());
@@ -70,18 +65,9 @@ const CrearProducto = () => {
         categorias: [...inputs.categorias, e.target.value],
       });
   };
+
   const handleImage = (e: ChangeEvent<any>) => {
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-    formData.append("upload_preset", "xbzjme36");
-    axios
-      .post("https://api.cloudinary.com/v1_1/dxzm2vv32/image/upload", formData)
-      .then((res) => {
-        setInputs({
-          ...inputs,
-          image: res.data.secure_url,
-        });
-      });
+    setImg(e.target.files);
   };
 
   const clearState = () => {
@@ -93,15 +79,13 @@ const CrearProducto = () => {
         descripcion: "",
         categorias: [],
         available: false,
-        image: "",
       };
     });
   };
 
   const handleCreateOrder = () => {
     clearState();
-    dispatch(createProd(header.headers, inputs));
-    navigate("/admin/products");
+    dispatch(createProd(header.headers, inputs, img));
   };
 
   //===================render========================
@@ -159,7 +143,6 @@ const CrearProducto = () => {
         <div className="grid grid-cols-[1fr_4fr] gap-4 w-[80%] mx-auto mb-4 ">
           <input
             type="file"
-            name="file"
             id="imagen"
             accept="image/*"
             className="hidden left-[10%] bottom-1 my-2"

@@ -12,7 +12,7 @@ type eventarget = {
   name: string;
 };
 
-const SearchBar = () => {
+const SearchBar = ({ setCurrentPage, setActive }: any) => {
   const [tosearch, setTosearch] = useState("");
   const dispatch = useAppDispatch();
 
@@ -27,6 +27,8 @@ const SearchBar = () => {
   function HandlertoSearch(e: any) {
     dispatch(fetchAllProducts(tosearch));
     setTosearch("");
+    setCurrentPage(1);
+    setActive(0);
   }
 
   function handleChange(e: evento) {
