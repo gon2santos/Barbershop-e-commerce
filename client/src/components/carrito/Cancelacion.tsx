@@ -17,7 +17,6 @@ const Cancelacion = () => {
     if (idOrder) {
       dispatch(cancelOrders(idOrder));
     }
-    return window.localStorage.removeItem("product");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

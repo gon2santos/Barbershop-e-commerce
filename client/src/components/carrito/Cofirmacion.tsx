@@ -16,7 +16,8 @@ const Cofirmacion = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       loading = false;
     }
-    return window.localStorage.removeItem("product");
+    window.localStorage.removeItem("product");
+    getCantCarrito() 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
