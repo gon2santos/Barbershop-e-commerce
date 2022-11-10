@@ -1,7 +1,5 @@
 // import { AiFillLeftSquare, AiFillRightSquare } from "react-icons/ai";
-
 import { useEffect, useState } from "react";
-
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 
 interface props {
@@ -16,15 +14,10 @@ interface props {
   minPageNumberLimit: number;
 }
 
-export const buttonFocus =
-  "focus:shadow-md focus:shadow-slate-500	focus:bg-[#855C20] focus:text-white focus:ease-in-out focus:duration-300";
-
 const Paginate = (props: props) => {
-
   const [active, setActive] = useState(0);
   const [page, setPage] = useState(1);
   const pageNumbers: number[] = [];
-
   for (
     let i = 1;
     i <= Math.ceil(props.allProducts / props.productsPerPage);
@@ -32,7 +25,6 @@ const Paginate = (props: props) => {
   ) {
     pageNumbers.push(i);
   }
-
   useEffect(() => {
     setPage(props.currentPage);
   }, [props.currentPage]);
@@ -56,10 +48,9 @@ const Paginate = (props: props) => {
         props.setMaxPageNumberLimit(props.maxPageNumberLimit - props.pageLimit);
         props.setMinPageNumberLimit(props.minPageNumberLimit - props.pageLimit);
       }
-
     }
   };
-
+  //============================puntitos======================0
   let pageIncrementBtn = null;
   if (pageNumbers.length > props.maxPageNumberLimit) {
     pageIncrementBtn = (
@@ -76,11 +67,13 @@ const Paginate = (props: props) => {
       </li>
     );
   }
+
+  //===========================render====================
   return (
     <div className=" text-center w-full flex items-center  justify-center ">
       <button
         onClick={handlePrevBtn}
-        className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 focus:bg-stone-900 focus:text-white`}
+        className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3  hover:text-[#855C20] hover:border-[#855C20]`}
       >
         <BiChevronsLeft />
       </button>
@@ -95,8 +88,13 @@ const Paginate = (props: props) => {
             return (
               <button
                 key={index}
-                className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 focus:bg-stone-900 focus:text-white`}
-                onClick={() => props.setCurrentPage(page)}
+                className={`${
+                  active === index ? "text-[#855C20] border-[#855C20]" : ""
+                }  border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 hover:text-[#855C20] hover:border-[#855C20]`}
+                onClick={() => {
+                  setActive(index);
+                  props.setCurrentPage(page);
+                }}
               >
                 {page}
               </button>
@@ -111,7 +109,7 @@ const Paginate = (props: props) => {
       <div>
         <button
           onClick={handleNextBtn}
-          className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 focus:bg-stone-900 focus:text-white`}
+          className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3  hover:text-[#855C20] hover:border-[#855C20]`}
         >
           <BiChevronsRight />
         </button>
