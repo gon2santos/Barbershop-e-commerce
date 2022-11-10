@@ -116,6 +116,7 @@ const PanelCompras = () => {
               <option value="Completa">Completa</option>
               <option value="Cancelada">Cancelada</option>
               <option value="Creada">Procesando</option>
+              <option value="Enviada">Despachada</option>
             </select>
           </div>
 
@@ -148,6 +149,8 @@ const PanelCompras = () => {
                   ? "COMPLETA"
                   : data.state === "Cancelada"
                   ? "CANCELADA"
+                  : data.state === "Enviada"
+                  ? "DESPACHADA"
                   : "PROCENSANDO";
 
               const price = data.products?.reduce((prev, curr) => {
