@@ -116,7 +116,7 @@ const NavBar = () => {
       </div>
 
       {logeado ? (
-        <Logeado />
+        <Logeado setHide={() => {}} />
       ) : (
         <Link
           className={`${buttonHover} ml-auto px-2 py-2 justify-self-center rounded-lg font-bold`}

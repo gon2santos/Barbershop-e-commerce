@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import barbero from "../../imagenes/barbero.jpg"
 
 interface barberCard {
   name: string;
@@ -13,7 +14,7 @@ const BarberCard = (barber: barberCard) => {
 
      <img
         className="lg:h-48 lg:w-48 object-cover bg-white  rounded-xl m-auto mt-2"
-        src="https://web-ontime.com/wp-content/uploads/2020/02/19-min.jpg"
+        src={barbero}
         alt="barber-image"
       />
 
