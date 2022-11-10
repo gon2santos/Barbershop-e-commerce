@@ -22,6 +22,8 @@ const PanelCompras = () => {
   const dispatch = useAppDispatch();
   const ordenes = useAppSelector((state) => state.admin.orders);
   const [searchBy, setSearchBy] = useState("");
+  const [buscarSelect, setBuscarSelect] = useState(true);
+  const [cateSelect, setCateSelect] = useState(true);
 
   useEffect(() => {
     dispatch(yaLog(user.email));
@@ -40,11 +42,16 @@ const PanelCompras = () => {
   const currentProducts = ordenes.length
     ? ordenes?.slice(firstPostIndex, lastPostIndex)
     : [];
+  const [active, setActive] = useState(0);
 
   //===============handlers===========================//
 
   const handleRestore = () => {
+    setBuscarSelect(true);
+    setCateSelect(true);
     dispatch(getAllOrders(header.headers));
+    setCurrentPage(1);
+    setActive(0);
   };
 
   const handleEstado = (id: string, newState: string) => {
@@ -83,6 +90,8 @@ const PanelCompras = () => {
 
   const handleFilter = (e: any) => {
     dispatch(filterOrderState(e.target.value));
+    setCurrentPage(1);
+    setActive(0);
   };
 
   const handleDespachar = (id: string) => {
@@ -98,19 +107,28 @@ const PanelCompras = () => {
       <div className=" mx-8 bg-white border-2 px-4 border-black rounded-lg">
         <div>
           <div className="flex  gap-8 mt-10">
-            <OrderSearch searchBy={searchBy} />
+            <OrderSearch
+              searchBy={searchBy}
+              setCurrentPage={setCurrentPage}
+              setActive={setActive}
+            />
             <select
               className="outline-none"
               onChange={(e) => handleSearchBy(e)}
             >
-              <option value="" disabled selected>
+              <option
+                value="placeholder"
+                disabled
+                hidden
+                selected={buscarSelect}
+              >
                 Buscar por
               </option>
               <option value="name">Name</option>
               <option value="id">Id</option>
             </select>
             <select className="outline-none" onChange={(e) => handleFilter(e)}>
-              <option value="" disabled selected>
+              <option value="placeholder" disabled hidden selected={cateSelect}>
                 Filtrar por estado
               </option>
               <option value="Completa">Completa</option>
@@ -219,6 +237,8 @@ const PanelCompras = () => {
             minPageNumberLimit={minPageNumberLimit}
             setMaxPageNumberLimit={setMaxPageNumberLimit}
             setMinPageNumberLimit={setMinPageNumberLimit}
+            active={active}
+            setActive={setActive}
           />
         </div>
       </div>

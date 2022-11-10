@@ -3,13 +3,16 @@ import { BsArrowDownShort, BsArrowUpShort } from "react-icons/bs";
 import { useAppDispatch } from "../../app/hooks";
 import { orderByName, orderByPrice } from "../slices/productSlice";
 
-export const OrderingByName = (hidden: { hidden: boolean }) => {
+export const OrderingByName = ({ hidden, resetPage }: any) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (event: any) => {
-    if (event.target.value.length) dispatch(orderByName(event.target.value));
+    if (event.target.value.length) {
+      dispatch(orderByName(event.target.value));
+      resetPage();
+    }
   };
-  const h = hidden.hidden ? "" : "hidden";
+  const h = hidden ? "" : "hidden";
 
   return (
     <div className={`flex flex-col items-start gap-8 ${h}`}>
@@ -23,13 +26,16 @@ export const OrderingByName = (hidden: { hidden: boolean }) => {
   );
 };
 
-export const OrderingByPrice = (hidden: { hidden: boolean }) => {
+export const OrderingByPrice = ({ hidden, resetPage }: any) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (event: any) => {
-    if (event.target.value.length) dispatch(orderByPrice(event.target.value));
+    if (event.target.value.length) {
+      dispatch(orderByPrice(event.target.value));
+      resetPage();
+    }
   };
-  const h = hidden.hidden ? "" : "hidden";
+  const h = hidden ? "" : "hidden";
 
   return (
     <div className={`flex flex-col items-start gap-8 ${h}`}>
@@ -43,14 +49,15 @@ export const OrderingByPrice = (hidden: { hidden: boolean }) => {
   );
 };
 
-export const OrderingPriceResp = (hidden: { hidden: boolean }) => {
+export const OrderingPriceResp = ({ hidden, resetPage }: any) => {
   const dispatch = useAppDispatch();
-  const h = hidden.hidden ? "" : "hidden";
+  const h = hidden ? "" : "hidden";
   const [arrow, setArrow] = useState(true);
   const [value, setValue] = useState("barato");
 
   const handleClick = (event: any) => {
     if (event.target.value.length) {
+      resetPage();
       dispatch(orderByPrice(event.target.value));
     }
 
@@ -68,14 +75,15 @@ export const OrderingPriceResp = (hidden: { hidden: boolean }) => {
   );
 };
 
-export const OrderingAlfaResp = (hidden: { hidden: boolean }) => {
+export const OrderingAlfaResp = ({ hidden, resetPage }: any) => {
   const dispatch = useAppDispatch();
-  const h = hidden.hidden ? "" : "hidden";
+  const h = hidden ? "" : "hidden";
   const [arrow, setArrow] = useState(true);
   const [value, setValue] = useState("name-asc");
 
   const handleClick = (event: any) => {
     if (event.target.value.length) {
+      resetPage();
       dispatch(orderByName(event.target.value));
     }
 

@@ -34,6 +34,7 @@ const PanelProductos = () => {
   const [cateSelect, setCateSelect] = useState(true);
   const navigate = useNavigate();
   const header = useHeaders(token);
+  const [active, setActive] = useState(0);
 
   //============use effect=================
 
@@ -64,18 +65,24 @@ const PanelProductos = () => {
       } else {
         dispatch(filter(event.target.value));
         setCurrentPage(1);
+        setActive(0);
       }
     }
+    setOrderSelect(true);
   };
 
   const handleRestore = (e: any) => {
     setOrderSelect(true);
     setCateSelect(true);
     dispatch(fetchAllProducts(""));
+    setCurrentPage(1);
+    setActive(0);
   };
 
   const handleOrder = (e: any) => {
     setOrderSelect(false);
+    setCurrentPage(1);
+    setActive(0);
     if (e.target.value === "alfa") {
       dispatch(orderByName("name-asc"));
     } else if (e.target.value === "stock") {
@@ -102,7 +109,10 @@ const PanelProductos = () => {
           <div>
             <div className="grid grid-cols-[1.5fr_1fr] gap-8">
               <div className="grid grid-cols-[2fr_1fr_1fr_.2fr] gap-16  my-8">
-                <SearchBar />
+                <SearchBar
+                  setCurrentPage={setCurrentPage}
+                  setActive={setActive}
+                />
                 <select
                   name="ordenar"
                   id="ordenar"
@@ -219,6 +229,8 @@ const PanelProductos = () => {
               minPageNumberLimit={minPageNumberLimit}
               setMaxPageNumberLimit={setMaxPageNumberLimit}
               setMinPageNumberLimit={setMinPageNumberLimit}
+              active={active}
+              setActive={setActive}
             />
           </div>
         </div>

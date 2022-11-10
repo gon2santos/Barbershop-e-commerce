@@ -1,12 +1,13 @@
 import { FaTrash } from "react-icons/fa";
 import { HiOutlineArrowDown, HiOutlineArrowUp } from "react-icons/hi2";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getCantCarrito } from "../slices/purchaseOrder";
 
 const ProductCard = (producto: any) => {
   let cantidad: number = producto.cantidad;
   const dispatch = useAppDispatch();
+  const product: any = useAppSelector((state) => state.products.allProducts);
   const prodLocalStorage: any = JSON.parse(
     window.localStorage.getItem("product") || "[]"
   );
@@ -29,12 +30,21 @@ const ProductCard = (producto: any) => {
   };
 
   const handleCantidadChange = (event: any, cantidad: number) => {
-    const index = prodLocalStorage.findIndex((p: any) => {
+    const stockIndex: any = product?.findIndex((p: any) => {
       return p.productos._id === producto._id;
     });
-    prodLocalStorage[index] = { productos: producto, cantidad };
-    updateLocal(prodLocalStorage);
-    producto.forceUpdate();
+
+    if (
+      product[stockIndex]?.stock <= cantidad &&
+      product[stockIndex]?.stock > 0
+    ) {
+      const index = prodLocalStorage.findIndex((p: any) => {
+        return p.productos._id === producto._id;
+      });
+      prodLocalStorage[index] = { productos: producto, cantidad };
+      updateLocal(prodLocalStorage);
+      producto.forceUpdate();
+    }
   };
 
   //==========================render=====================================

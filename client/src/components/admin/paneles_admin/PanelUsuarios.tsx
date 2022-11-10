@@ -33,6 +33,8 @@ const PanelUsuarios = () => {
   const lastPostIndex = currentPage * productsPerPage;
   const firstPostIndex = lastPostIndex - productsPerPage;
   const currentProducts = users.slice(firstPostIndex, lastPostIndex);
+  const [active, setActive] = useState(0);
+
   //=====================click handlers=====================
   const handleBanned = (
     id: string,
@@ -40,38 +42,28 @@ const PanelUsuarios = () => {
     banned: boolean | undefined
   ) => {
     if (!banned) {
-      if (window.confirm(`¿Esta seguro que quiere BANEAR a ${user}?`)) {
-        dispatch(banearUsuario(header.headers, id));
-      }
+      dispatch(banearUsuario(header.headers, id));
     } else {
-      if (window.confirm(`¿Esta seguro que quiere DESBANEAR a ${user}?`)) {
-        dispatch(banearUsuario(header.headers, id));
-      }
+      dispatch(banearUsuario(header.headers, id));
     }
   };
 
   const handleAdmin = (id: string, user: string, rol: string) => {
     if (rol === "user") {
-      if (
-        window.confirm(`¿Esta seguro de dar privilegios de ADMIN a ${user}?`)
-      ) {
-        dispatch(hacerAdmin(header.headers, id, rol));
-      }
+      dispatch(hacerAdmin(header.headers, id, rol));
     } else {
-      if (
-        window.confirm(`¿Esta seguro de QUITAR privilegios de ADMIN a ${user}?`)
-      ) {
-        dispatch(hacerAdmin(header.headers, id, rol));
-      }
+      dispatch(hacerAdmin(header.headers, id, rol));
     }
   };
 
   const handleRestoreUsers = () => {
     dispatch(getUsers(header.headers));
+    setCurrentPage(1);
+    setActive(0);
   };
 
   //==============render================================
-  if ([] instanceof Array) {
+  if (users instanceof Array) {
     return (
       <div className=" bg-white pb-8 bg-admin-banner bg-no-repeat bg-contain h-full">
         <h1 className=" text-white justify-center py-20 mb-2 text-5xl font-bold flex flex-col align-middle items-center">
@@ -93,7 +85,10 @@ const PanelUsuarios = () => {
                   }}
                   size={25}
                 />
-                <UserSearch />
+                <UserSearch
+                  setCurrentPage={setCurrentPage}
+                  setActive={setActive}
+                />
               </div>
 
               {currentProducts.map((data) => {
@@ -146,6 +141,8 @@ const PanelUsuarios = () => {
               minPageNumberLimit={minPageNumberLimit}
               setMaxPageNumberLimit={setMaxPageNumberLimit}
               setMinPageNumberLimit={setMinPageNumberLimit}
+              active={active}
+              setActive={setActive}
             />
           </div>
         </div>
