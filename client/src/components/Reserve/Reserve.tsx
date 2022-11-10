@@ -7,30 +7,28 @@ import { RootState } from "../../app/store";
 import { buttonHover } from "../NavBar";
 import { postAppointment } from "../slices/appoinment";
 import { fetchAllBarbers } from "../slices/barbers";
+import { yaLog } from "../slices/logIn";
 import { fetchAllOffices } from "../slices/offices";
 import BarberCard from "./BarberCard";
 
+const initialTurn = {
+  service: "",
+
+  date: new Date(Date.now()),
+  barber: "",
+  office: "",
+  block: 0,
+};
 const selected = "bg-black text-white hover:ease-in-out duration-300";
 
 const Reserve = () => {
-  const [user, setUser]=useState(JSON.parse(window.localStorage.getItem("user") || "0"))
-
-  const initialTurn = {
-    service: "",
-    user: user._id,
-    date: new Date(Date.now()),
-    barber: "",
-    office: "",
-    block: 0,
-  };
- 
   const dispatch = useAppDispatch();
   const [turno, setTurno] = useState(initialTurn);
-
+  const [user, setUser]=useState(JSON.parse(window.localStorage.getItem("user") || "0"))
 
   useEffect(() => {
-    dispatch(fetchAllBarbers());
-    dispatch(fetchAllOffices());
+        dispatch(fetchAllBarbers());
+    dispatch(fetchAllOffices());    
   }, []);
 
   useEffect(()=>{
@@ -80,33 +78,19 @@ const Reserve = () => {
 
   //==============================0render==============================
   return (
-    <div className="lg:bg-white lg:bg-turnos-banner bg-no-repeat lg:pt-32 lg:pb-20 bg-cover min-h-screen">
-      {user ? (
+    <div className="lg:bg-white lg:bg-turnos-banner bg-no-repeat lg:pt-32 pb-20 bg-cover min-h-screen align-items- ">
+      {user? (
         <>
           <h2 className="flex  justify-center my-auto text-5xl text-white mb-12">
             PEDI TU TURNO
           </h2>
-          <div className="lg:border bg-white border-black rounded-xl lg:py-5 lg:mx-40 ">
-          <div className="flex justify-end md:justify-start mb-5">
-                <Link to="/reserve/barber">
-                  <button
-                    className={`${buttonHover} py-1 my-3  m-4 bg-white border border-black justify-end`}
-                  >
-                    VER MIS TURNOS
-                  </button>
-                </Link>
-                </div>
-                
+          <div className="lg:border bg-white border-black rounded-xl py-10 lg:mx-40 my-auto">
             <form
               onChange={(e) => handleFormTurn(e)}
               className="lg:flex items-center place-content-baseline text-black"
-            >              
-            
+            >
               <div className="flex flex-col-3 align-center justify-center lg:pl-8 grow pb-12">
-                
-                
                 <div className=" justify-center align-center min  lg:border-r  border-black lg:pr-12 ">
-            
                   <h2 className="flex justify-center my-auto lg:text-2xl text-xl text-black lg:pb-10 pb-5 ">
                     SELECCION DEL SERVICIO <br />
                   </h2>
@@ -117,7 +101,7 @@ const Reserve = () => {
                       onClick={(e) => serviceSelect(e)}
                       className={`${
                         turno.service === "Corte" ? selected : ""
-                      }  px-4 py-1  m-auto my-3 bg-white border border-black`}
+                      }  px-4 py-1  m-auto my-3 text-black bg-white border border-black`}
                     >
                       Corte
                     </button>
@@ -195,13 +179,13 @@ const Reserve = () => {
                 </div>
               </div>
               <div className=" justify-center inline-block min lg:mr-12 pt-5 grow border-l border-black lg:pl-10 pl-1">
-                <div className="md:inline-block flex justify-items-center flex-col md:flex-row ">
+                <div className=" justify-center inline-block min  grow">
                   <h2 className="flex justify-center my-auto text-2xl text-black">
-                    SELECCION DE FECHA
-                    
+                    SELECCION DEL HORARIO
+                    <br />
                   </h2>
-                
-                  <div className=" md:w-80 w-screen bg-white py-4 text-black flex justify-center">
+                  <br />
+                  <div className=" w-80 bg-white border border-black p-4 pt-2 rounded-lg text-black text-center">
                     <Calendar
                       minDate={new Date(Date.now())}
                       onChange={(val: Date) =>
@@ -211,12 +195,11 @@ const Reserve = () => {
                       }
                       value={date}
                     />
-                    <br />
                   </div>
-                      
-                      <div className="flex justify-center">
+                  {/* <input  className="justify-center justify-center my-auto   text-xl  text-black" type="date" /> */}
+                  <br />
                   <select
-                    className="lg:inline justify-center lg:p-2 lg:ml-10 lg:mt-5 py-1 rounded-lg border border-black"
+                    className="lg:inline justify-center lg:p-2 ml-10 lg:mt-5 py-1 rounded-lg border border-black"
                     name="block"
                     id=""
                     value={turno.block}
@@ -231,8 +214,7 @@ const Reserve = () => {
                     <option value="7">16:00hs</option>
                     <option value="8">17:00hs</option>
                   </select>
-                  </div>
-               
+                </div>
 
                 <br />
                 <button
@@ -242,16 +224,21 @@ const Reserve = () => {
                 >
                   AGENDAR
                 </button>
-                </div>
                 <br />
-              
+                <Link to="/reserve/barber">
+                  <button
+                    className={`${buttonHover} px-4 py-1  m-auto mt-5 bg-white border border-black`}
+                  >
+                    MIS TURNOS
+                  </button>
+                </Link>
               </div>
             </form>
           </div>
         </>
       ) : (
-        <div className="border h-86 bg-white border-black rounded-xl py-10 lg:mx-40 my-16">
-          <h2 className=" text-center text-xl text-red-500 font-bold">
+        <div className="border h-86 bg-white border-black rounded-xl py-10 mx-40 my-auto">
+          <h2 className="text-center text-xl text-red-500 font-bold">
             *Necesitas iniciar sesión para solicitar un Turno*
           </h2>
         </div>

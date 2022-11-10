@@ -67,16 +67,16 @@ export default function Favorites() {
   };
   if (favoritos instanceof Array) {
     const currentFavs = favoritos.slice(firstPostIndex, lastPostIndex);
+
     return (
-      <div className=" bg-white lg:bg-store-banner bg-no-repeat lg:pt-52 lg:pb-2 bg-contain">
+      <div className=" bg-white bg-favorites-banner bg-no-repeat pb-2 bg-contain min-h-screen">
         <VscArrowLeft onClick={() => goBack()} className="h-7 w-7 fill-white" />
-  
-  
-        <div className="border bg-white lg:border-black rounded-xl p-3 mx-4 mt-10 ">
-        <h1 className="flex justify-center pb-4 lg:pb-10 pt-5 lg:text-6xl text-5xl">
+        <h1 className="flex justify-center text-white pb-4 pt-36 text-6xl">
           MIS FAVORITOS
         </h1>
-          <div className="lg:grid lg:grid-cols-4 lg:gap-4 lg:p-10 lg:mx-4   ">
+
+        <div className="border bg-white border-black rounded-xl p-3 mx-4 mt-10">
+          <div className="grid grid-cols-4 gap-4 p-10 mx-4">
             {currentFavs?.map((Favoritos: any) => (
               <ProductCard
                 key={Favoritos._id}
@@ -106,4 +106,4 @@ export default function Favorites() {
       </div>
     );
   } else return <h1>Aún no hay productos favoritos</h1>;
-  }
+}

@@ -22,8 +22,8 @@ const OrderDetail = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="md:bg-[#222222] md:py-24 py-20 border-black"></div>
-      <div className="bg-white border-2 border-black -mt-20 md:mx-8 rounded-lg">
+      <div className="bg-[#222222] py-24 border-black"></div>
+      <div className="bg-white border-2 border-black -mt-20 mx-8 rounded-lg">
         <IoMdArrowBack
           onClick={() => navigate(-1)}
           className=" mt-4 ml-4 text-2xl"
@@ -32,8 +32,8 @@ const OrderDetail = () => {
           ORDEN DE COMPRA
         </h1>
 
-        <div className="border border-black md:m-8 m-2 rounded-lg">
-          <div className="grid md:grid-cols-[1fr_2fr] my-16 gap-4">
+        <div className="border border-black m-8 rounded-lg">
+          <div className="grid grid-cols-[1fr_2fr] my-16 gap-4">
             <div className="justify-self-center font-medium">
               <p className="mb-2">
                 {" "}
@@ -50,7 +50,7 @@ const OrderDetail = () => {
               </p>
             </div>
 
-            <div className="border-l border-black pl-4 md:pl-16  grid gap-4">
+            <div className="border-l border-black pl-16  grid gap-4">
               <div className="grid grid-cols-[2fr_1fr_1fr_1fr] pb-4 font-bold">
                 <p>Nombre</p>
                 <p>Precio</p>

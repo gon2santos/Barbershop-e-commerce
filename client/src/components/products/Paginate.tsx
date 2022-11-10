@@ -1,5 +1,4 @@
 // import { AiFillLeftSquare, AiFillRightSquare } from "react-icons/ai";
-import { useState } from "react";
 import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 
 interface props {
@@ -14,9 +13,11 @@ interface props {
   minPageNumberLimit: number;
 }
 
+export const buttonFocus =
+  "focus:shadow-md focus:shadow-slate-500	focus:bg-[#855C20] focus:text-white focus:ease-in-out focus:duration-300";
+
 const Paginate = (props: props) => {
-  const [active, setActive] = useState(0);
-  const pageNumbers: number[] = [];
+  const pageNumbers = [];
   for (
     let i = 1;
     i <= Math.ceil(props.allProducts / props.productsPerPage);
@@ -24,29 +25,21 @@ const Paginate = (props: props) => {
   ) {
     pageNumbers.push(i);
   }
-
-  //==========================handlers=================================0
   const handleNextBtn = () => {
-    if (pageNumbers.length > props.currentPage) {
-      setActive((prev: number) => prev + 1);
-      props.setCurrentPage((prev: number) => prev + 1);
-      if (props.currentPage + 1 > props.maxPageNumberLimit) {
-        props.setMaxPageNumberLimit(props.maxPageNumberLimit + props.pageLimit);
-        props.setMinPageNumberLimit(props.minPageNumberLimit + props.pageLimit);
-      }
+    props.setCurrentPage((prev: number) => prev + 1);
+    if (props.currentPage + 1 > props.maxPageNumberLimit) {
+      props.setMaxPageNumberLimit(props.maxPageNumberLimit + props.pageLimit);
+      props.setMinPageNumberLimit(props.minPageNumberLimit + props.pageLimit);
     }
   };
   const handlePrevBtn = () => {
-    if (1 < props.currentPage) {
-      setActive((prev: number) => prev - 1);
-      props.setCurrentPage((prev: number) => prev - 1);
-      if ((props.currentPage - 1) % props.pageLimit === 0) {
-        props.setMaxPageNumberLimit(props.maxPageNumberLimit - props.pageLimit);
-        props.setMinPageNumberLimit(props.minPageNumberLimit - props.pageLimit);
-      }
+    props.setCurrentPage((prev: number) => prev - 1);
+    if ((props.currentPage - 1) % props.pageLimit === 0) {
+      props.setMaxPageNumberLimit(props.maxPageNumberLimit - props.pageLimit);
+      props.setMinPageNumberLimit(props.minPageNumberLimit - props.pageLimit);
     }
   };
-  //============================puntitos======================0
+
   let pageIncrementBtn = null;
   if (pageNumbers.length > props.maxPageNumberLimit) {
     pageIncrementBtn = (
@@ -63,13 +56,11 @@ const Paginate = (props: props) => {
       </li>
     );
   }
-
-  //===========================render====================
   return (
     <div className=" text-center w-full flex items-center  justify-center ">
       <button
         onClick={handlePrevBtn}
-        className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3  hover:text-[#855C20] hover:border-[#855C20]`}
+        className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 focus:bg-stone-900 focus:text-white`}
       >
         <BiChevronsLeft />
       </button>
@@ -84,13 +75,8 @@ const Paginate = (props: props) => {
             return (
               <button
                 key={index}
-                className={`${
-                  active === index ? "text-[#855C20] border-[#855C20]" : ""
-                }  border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 hover:text-[#855C20] hover:border-[#855C20]`}
-                onClick={() => {
-                  setActive(index);
-                  props.setCurrentPage(page);
-                }}
+                className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 focus:bg-stone-900 focus:text-white`}
+                onClick={() => props.setCurrentPage(page)}
               >
                 {page}
               </button>
@@ -105,7 +91,7 @@ const Paginate = (props: props) => {
       <div>
         <button
           onClick={handleNextBtn}
-          className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3  hover:text-[#855C20] hover:border-[#855C20]`}
+          className={`border border-black rounded-lg font-bold text-base bg-white text-black lg:h-9 lg:mb-2 py-1 px-3 lg:my-10 lg:mx-3 focus:bg-stone-900 focus:text-white`}
         >
           <BiChevronsRight />
         </button>
