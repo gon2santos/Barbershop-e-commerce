@@ -4,7 +4,7 @@ import useHeaders from "../../app/header";
 import { useAppDispatch } from "../../app/hooks";
 import { searchOrderId, searchOrderName } from "../slices/admin";
 
-const OrderSearch = ({ searchBy, setCurrentPage}: any) => {
+const OrderSearch = ({ searchBy, setCurrentPage, setActive }: any) => {
   const [searchParam, setSearchParam] = useState("");
   const dispatch = useAppDispatch();
   const token = JSON.parse(window.localStorage.getItem("token") || "{}");
@@ -21,7 +21,8 @@ const OrderSearch = ({ searchBy, setCurrentPage}: any) => {
       }
       setSearchParam("");
     }
-    setCurrentPage(1)
+    setCurrentPage(1);
+    setActive(0);
   };
   const handleChange = (e: { target: { value: string; name: string } }) => {
     if (e.target.name === "searchParam") {

@@ -22,6 +22,7 @@ export default function Favorites() {
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
   const lastPostIndex = currentPage * productsPerPage;
   const firstPostIndex = lastPostIndex - productsPerPage;
+  const [active, setActive] = useState(0);
 
   const cargarFavs = () => {
     const aux = window.localStorage.getItem("user");
@@ -65,9 +66,9 @@ export default function Favorites() {
   const goBack = () => {
     navigate(-1);
   };
+
   if (favoritos instanceof Array) {
     const currentFavs = favoritos.slice(firstPostIndex, lastPostIndex);
-
     return (
       <div className=" bg-white bg-favorites-banner bg-no-repeat pb-2 bg-contain min-h-screen">
         <VscArrowLeft onClick={() => goBack()} className="h-7 w-7 fill-white" />
@@ -101,6 +102,8 @@ export default function Favorites() {
             minPageNumberLimit={minPageNumberLimit}
             setMaxPageNumberLimit={setMaxPageNumberLimit}
             setMinPageNumberLimit={setMinPageNumberLimit}
+            active={active}
+            setActive={setActive}
           />
         </div>
       </div>

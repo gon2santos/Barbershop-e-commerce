@@ -25,7 +25,6 @@ const PanelCompras = () => {
   const [buscarSelect, setBuscarSelect] = useState(true);
   const [cateSelect, setCateSelect] = useState(true);
 
-
   useEffect(() => {
     dispatch(yaLog(user.email));
     dispatch(getAllOrders(header.headers));
@@ -43,6 +42,7 @@ const PanelCompras = () => {
   const currentProducts = ordenes.length
     ? ordenes?.slice(firstPostIndex, lastPostIndex)
     : [];
+  const [active, setActive] = useState(0);
 
   //===============handlers===========================//
 
@@ -51,6 +51,7 @@ const PanelCompras = () => {
     setCateSelect(true);
     dispatch(getAllOrders(header.headers));
     setCurrentPage(1);
+    setActive(0);
   };
 
   const handleEstado = (id: string, newState: string) => {
@@ -90,6 +91,7 @@ const PanelCompras = () => {
   const handleFilter = (e: any) => {
     dispatch(filterOrderState(e.target.value));
     setCurrentPage(1);
+    setActive(0);
   };
 
   const handleDespachar = (id: string) => {
@@ -105,7 +107,11 @@ const PanelCompras = () => {
       <div className=" mx-8 bg-white border-2 px-4 border-black rounded-lg">
         <div>
           <div className="flex  gap-8 mt-10">
-            <OrderSearch searchBy={searchBy} setCurrentPage={setCurrentPage} />
+            <OrderSearch
+              searchBy={searchBy}
+              setCurrentPage={setCurrentPage}
+              setActive={setActive}
+            />
             <select
               className="outline-none"
               onChange={(e) => handleSearchBy(e)}
@@ -231,6 +237,8 @@ const PanelCompras = () => {
             minPageNumberLimit={minPageNumberLimit}
             setMaxPageNumberLimit={setMaxPageNumberLimit}
             setMinPageNumberLimit={setMinPageNumberLimit}
+            active={active}
+            setActive={setActive}
           />
         </div>
       </div>
