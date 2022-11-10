@@ -13,7 +13,7 @@ const BarberCard = (barber: barberCard) => {
 
      <img
         className="lg:h-48 lg:w-48 object-cover bg-white  rounded-xl m-auto mt-2"
-        src="https://web-ontime.com/wp-content/uploads/2020/02/19-min.jpg"
+        src="https://s3-media0.fl.yelpcdn.com/bphoto/rE80IDhQKYV1PMd_K_IwhA/348s.jpg"
         alt="barber-image"
       />
 
