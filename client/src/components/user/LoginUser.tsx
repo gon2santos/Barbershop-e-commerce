@@ -1,8 +1,7 @@
 import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
 import axios from "axios";
-import { browserLocalPersistence, setPersistence } from "firebase/auth";
 import { useState, useEffect } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../App";
 import { useAppDispatch } from "../../app/hooks";
 import logo from "../../imagenes/Logo.png";
@@ -164,7 +163,7 @@ export default function LoginUser() {
               value={password}
             />
 
-            {user.google_account ? (
+            {!user.google_account ? (
               <button
                 className="cursor-pointer"
                 onClick={(e) => handleForgotPass(e)}
@@ -182,7 +181,7 @@ export default function LoginUser() {
               Ingresar
             </button>
 
-            {user.google_account ? (
+            {!user.google_account ? (
               <div className={`${showTwoFa}`}>
                 <span>2FA habilitado: ingrese su codigo</span>
                 <input

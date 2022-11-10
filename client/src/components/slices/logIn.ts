@@ -19,7 +19,7 @@ const initialState = {
   token: "",
   logeado: false,
   twoFaEnabled: false,
-  secret: ""
+  secret: "",
 };
 
 type dataUser = {
@@ -58,16 +58,16 @@ export const checkTwoFa = (email: string, password: string) => {
       const res: any = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/users/twofa-enabled`,
         {
-          email
+          email,
         }
       );
       dispatch(setTwoFaState(res.data));
       if (!res.data.twofa) {
         dispatch(logIn(email, password));
-      }//si 2fa es true loginUser se encarga
+      } //si 2fa es true loginUser se encarga
     } catch (error: any) {
       if (error.response.status === 500) {
-        alert("error 500: 2FA");
+        alert("Cuenta invalida");
       } else {
         alert("general error: 2FA");
       }
@@ -112,7 +112,11 @@ export const logUp = (user: object): AppThunk => {
   };
 };
 
-export const updateUser = (idUser: string, formUser: object, header: object): AppThunk => {
+export const updateUser = (
+  idUser: string,
+  formUser: object,
+  header: object
+): AppThunk => {
   return async (dispatch) => {
     try {
       const userUpdated: dataUser = await axios.put(
@@ -123,7 +127,7 @@ export const updateUser = (idUser: string, formUser: object, header: object): Ap
       dispatch(userUpdate(userUpdated.data));
       alert("Informacion actualizada exitosamente");
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       alert("Error al actualizar info");
     }
   };
@@ -193,7 +197,11 @@ export const logInReducerSlice = createSlice({
 
 export default logInReducerSlice.reducer;
 
-
-export const { userLogIn, setTwoFaState, userLogOut, yaLogeado, userCreate, userUpdate } =
-
-  logInReducerSlice.actions;
+export const {
+  userLogIn,
+  setTwoFaState,
+  userLogOut,
+  yaLogeado,
+  userCreate,
+  userUpdate,
+} = logInReducerSlice.actions;
