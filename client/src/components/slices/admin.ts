@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { redirect } from "react-router";
 import { AppThunk } from "../../app/store";
 import { products } from "./productSlice";
-
 interface users {
   _id: string;
   email: string;
@@ -19,13 +17,11 @@ interface users {
   favorites_products?: Array<string>;
   purchases?: Array<any>;
 }
-
 export interface inputs {
   lat: 0;
   long: 0;
   location: string;
 }
-
 interface PurchaseOrders {
   _id: string;
   user?: string;
@@ -45,7 +41,6 @@ const initialState: init = {
   orders: [],
   filtroOrden: [],
 };
-
 //==========action==================
 export const deleteProd = (
   header: { token: string | null },
@@ -59,7 +54,6 @@ export const deleteProd = (
     dispatch(adminDeleteProd(res));
   };
 };
-
 export const createOffice = (
   header: { token: string | null },
   oficina: object
@@ -90,18 +84,15 @@ export const borrarOffice = (
         `${process.env.REACT_APP_BASE_URL}/office/delete/${id}`,
         { headers: header }
       );
-
       alert("Oficina borrada con exito");
     } catch (error) {
       alert("No se pudo borrar la oficina");
     }
   };
 };
-
 export const createProd = (
   header: { token: string | null },
-  data: any,
-  img: any
+  data: any
 ): AppThunk => {
   return async () => {
     try {
@@ -112,8 +103,8 @@ export const createProd = (
       newProd.append("available", data.available);
       newProd.append("description", data.descripcion);
       newProd.append("categories", data.categorias);
-      newProd.append("image", img[0]);
-
+      //newProd.append("image", data.image);
+      newProd.append("image", data.image);
       await axios.post(
         `${process.env.REACT_APP_BASE_URL}/products/create`,
         newProd,
@@ -126,7 +117,6 @@ export const createProd = (
     }
   };
 };
-
 export const editProd = (
   header: { token: string | null },
   data: any,
@@ -144,7 +134,6 @@ export const editProd = (
       img.length !== 0
         ? newProd.append("image", img[0])
         : newProd.append("image", "");
-
       const res = await axios.put(
         `${process.env.REACT_APP_BASE_URL}/products/edit/${idProduct}`,
         newProd,
@@ -161,7 +150,6 @@ export const editProd = (
     }
   };
 };
-
 export const getUsers = (header: { token: string | null }): AppThunk => {
   return async (dispatch) => {
     try {
@@ -175,7 +163,6 @@ export const getUsers = (header: { token: string | null }): AppThunk => {
     }
   };
 };
-
 export const banearUsuario = (
   header: { token: string | null },
   id: string
@@ -194,7 +181,6 @@ export const banearUsuario = (
     }
   };
 };
-
 export const hacerAdmin = (
   header: { token: string | null },
   id: string,
@@ -215,7 +201,6 @@ export const hacerAdmin = (
     }
   };
 };
-
 export const searchUser = (param: string): AppThunk => {
   return async (dispatch) => {
     try {
@@ -228,7 +213,6 @@ export const searchUser = (param: string): AppThunk => {
     }
   };
 };
-
 export const getAllOrders = (header: { token: string | null }): AppThunk => {
   return async (dispatch) => {
     try {
@@ -242,7 +226,6 @@ export const getAllOrders = (header: { token: string | null }): AppThunk => {
     }
   };
 };
-
 export const cambiarEstadoOrden = (
   header: { token: string | null },
   id: string,
@@ -299,7 +282,6 @@ export const cambiarEstadoOrdenCancelada = (
     }
   };
 };
-
 export const searchOrderName = (name: string): AppThunk => {
   return async (dispatch) => {
     try {
@@ -312,7 +294,6 @@ export const searchOrderName = (name: string): AppThunk => {
     }
   };
 };
-
 export const searchOrderId = (
   header: { token: string | null },
   id: string
@@ -329,13 +310,11 @@ export const searchOrderId = (
     }
   };
 };
-
 export const filterOrderState = (value: string): AppThunk => {
   return (dispatch) => {
     dispatch(filterOrders(value));
   };
 };
-
 export const createCate = (
   header: { token: string | null },
   name: string
@@ -353,7 +332,6 @@ export const createCate = (
     }
   };
 };
-
 export const borrarCate = (
   header: { token: string | null },
   id: string
@@ -364,14 +342,12 @@ export const borrarCate = (
         `${process.env.REACT_APP_BASE_URL}/categories/delete?id=${id}`,
         { headers: header }
       );
-
       alert("Categoria borrada con exito");
     } catch (error) {
       alert("No se pudo crear la categoria");
     }
   };
 };
-
 export const despacharOrden = (
   header: { token: string | null },
   id: string
@@ -390,7 +366,6 @@ export const despacharOrden = (
     }
   };
 };
-
 export const ordersProducto = (
   header: { token: string | null },
   id: string | undefined
@@ -407,7 +382,6 @@ export const ordersProducto = (
     }
   };
 };
-
 //================reducer===================
 const adminReducerSlice = createSlice({
   name: "admin",
@@ -433,7 +407,6 @@ const adminReducerSlice = createSlice({
       const index = state.orders.findIndex((el) => {
         return el._id === action.payload._id;
       });
-
       state.orders[index] = action.payload;
       state.filtroOrden[index] = action.payload;
     },
@@ -478,7 +451,6 @@ const adminReducerSlice = createSlice({
     },
   },
 });
-
 export default adminReducerSlice.reducer;
 export const {
   adminDeleteProd,
