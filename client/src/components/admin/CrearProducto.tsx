@@ -5,6 +5,9 @@ import useHeaders from "../../app/header";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { createProd } from "../slices/admin";
 import { categorias } from "../slices/productSlice";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { RiContrastDropLine } from "react-icons/ri";
 export interface input {
   nombre: string;
   precio: number;
@@ -12,9 +15,10 @@ export interface input {
   descripcion: string;
   categorias: Array<string>;
   available: boolean;
+  image: string;
 }
-
 const CrearProducto = () => {
+  const navigate = useNavigate();
   const token = JSON.parse(window.localStorage.getItem("token") || "{}");
   const header = useHeaders(token);
   const dispatch = useAppDispatch();
@@ -26,13 +30,11 @@ const CrearProducto = () => {
     descripcion: "",
     categorias: [],
     available: false,
+    image: "",
   });
-  const [img, setImg] = useState();
-
   useEffect(() => {
     dispatch(categorias());
   }, [dispatch]);
-
   //================handlers===========
   const handleInput = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
@@ -47,7 +49,6 @@ const CrearProducto = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
   const deleteCate = (name: string) => {
     const filtered = inputs.categorias.filter((cate) => {
       return cate !== name;
@@ -65,11 +66,19 @@ const CrearProducto = () => {
         categorias: [...inputs.categorias, e.target.value],
       });
   };
-
   const handleImage = (e: ChangeEvent<any>) => {
-    setImg(e.target.files);
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    formData.append("upload_preset", "xbzjme36");
+    axios
+      .post("https://api.cloudinary.com/v1_1/dxzm2vv32/image/upload", formData)
+      .then((res) => {
+        setInputs({
+          ...inputs,
+          image: res.data.secure_url,
+        });
+      });
   };
-
   const clearState = () => {
     setInputs(() => {
       return {
@@ -79,15 +88,16 @@ const CrearProducto = () => {
         descripcion: "",
         categorias: [],
         available: false,
+        image: "",
       };
     });
   };
-
   const handleCreateOrder = () => {
     clearState();
-    dispatch(createProd(header.headers, inputs, img));
+    dispatch(createProd(header.headers, inputs));
+    alert("Producto creado con exito");
+    navigate("/admin/products");
   };
-
   //===================render========================
   return (
     <div className=" flex bg-bg-prods bg-cover">
@@ -98,7 +108,6 @@ const CrearProducto = () => {
         <div className="flex m-auto pt-4 border-b-2 border-black"></div>
         <div className="flex flex-row justify-around  my-16">
           <label htmlFor="precio">Nombre: </label>
-
           <input
             value={inputs.nombre}
             type="text"
@@ -130,7 +139,6 @@ const CrearProducto = () => {
             />
           </div>
         </div>
-
         <textarea
           value={inputs.descripcion}
           name="descripcion"
@@ -139,10 +147,10 @@ const CrearProducto = () => {
           className="flex m-auto rounded-lg bg-white/70 p-4 mb-8 w-[90%]"
           placeholder="Descripción"
         />
-
         <div className="grid grid-cols-[1fr_4fr] gap-4 w-[80%] mx-auto mb-4 ">
           <input
             type="file"
+            name="file"
             id="imagen"
             accept="image/*"
             className="hidden left-[10%] bottom-1 my-2"
@@ -150,7 +158,6 @@ const CrearProducto = () => {
               handleImage(e);
             }}
           />
-
           <label
             className="left-[10%] bottom-1 cursor-pointer my-2"
             htmlFor="imagen"
@@ -158,7 +165,6 @@ const CrearProducto = () => {
             <p className="bg-white/70 rounded-lg px-2">Choose file</p>
           </label>
         </div>
-
         <div className="flex justify-self-center flex-wrap gap-4  m-auto">
           <select
             name="categorias"
@@ -202,5 +208,4 @@ const CrearProducto = () => {
     </div>
   );
 };
-
 export default CrearProducto;
