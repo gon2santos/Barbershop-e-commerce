@@ -95,6 +95,13 @@ const MenuResponsive = () => {
         >
           Carrito
         </Link>
+        <Link
+        to={"/products/favorites"}
+        onClick={() => setHide("-translate-y-full")}
+        className={`${buttonHover} px-4 py-1 rounded-lg`}
+        >
+        Favoritos
+        </Link>
       </div>
       {logeado && <Logeado setHide={setHide} />}
       <VscMenu
