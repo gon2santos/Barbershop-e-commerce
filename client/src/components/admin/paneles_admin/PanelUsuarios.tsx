@@ -9,9 +9,8 @@ import { banearUsuario, getUsers, hacerAdmin } from "../../slices/admin";
 import { yaLog } from "../../slices/logIn";
 import UserSearch from "../UserSearch";
 
-const user = JSON.parse(window.localStorage.getItem("user") || "{}");
-
 const PanelUsuarios = () => {
+  const user = JSON.parse(window.localStorage.getItem("user") || "{}");
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state: RootState) => state.admin);
   const token = JSON.parse(window.localStorage.getItem("token") || "{}");
@@ -34,36 +33,22 @@ const PanelUsuarios = () => {
   const firstPostIndex = lastPostIndex - productsPerPage;
   const currentProducts = users.slice(firstPostIndex, lastPostIndex);
   //=====================click handlers=====================
-  const handleBanned = (
-    id: string,
-    user: string,
-    banned: boolean | undefined
-  ) => {
+  const handleBanned = (id: string, banned: boolean | undefined) => {
     if (!banned) {
-      if (window.confirm(`¿Esta seguro que quiere BANEAR a ${user}?`)) {
-        dispatch(banearUsuario(header.headers, id));
-      }
+      dispatch(banearUsuario(header.headers, id));
     } else {
-      if (window.confirm(`¿Esta seguro que quiere DESBANEAR a ${user}?`)) {
-        dispatch(banearUsuario(header.headers, id));
-      }
+      dispatch(banearUsuario(header.headers, id));
     }
+    handleRestoreUsers();
   };
 
-  const handleAdmin = (id: string, user: string, rol: string) => {
+  const handleAdmin = (id: string, rol: string) => {
     if (rol === "user") {
-      if (
-        window.confirm(`¿Esta seguro de dar privilegios de ADMIN a ${user}?`)
-      ) {
-        dispatch(hacerAdmin(header.headers, id, rol));
-      }
+      dispatch(hacerAdmin(header.headers, id, rol));
     } else {
-      if (
-        window.confirm(`¿Esta seguro de QUITAR privilegios de ADMIN a ${user}?`)
-      ) {
-        dispatch(hacerAdmin(header.headers, id, rol));
-      }
+      dispatch(hacerAdmin(header.headers, id, rol));
     }
+    handleRestoreUsers();
   };
 
   const handleRestoreUsers = () => {
@@ -117,14 +102,12 @@ const PanelUsuarios = () => {
                     <input
                       type="checkbox"
                       defaultChecked={data.banned}
-                      onChange={(e) =>
-                        handleBanned(data._id, data.email, data.banned)
-                      }
+                      onChange={(e) => handleBanned(data._id, data.banned)}
                     />
                     <input
                       type="checkbox"
                       defaultChecked={admin}
-                      onChange={(e) => handleAdmin(data._id, data.email, rol)}
+                      onChange={(e) => handleAdmin(data._id, rol)}
                     />
                     <Link
                       className="justify-self-end mr-3 text-blue-700"
