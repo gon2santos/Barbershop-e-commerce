@@ -43,11 +43,9 @@ export const logIn = (email: string, password: string): AppThunk => {
         dispatch(userLogIn(res.data));
       }
     } catch (error: any) {
-      if (error.response.status === 400) {
-        alert("Su cuenta fue baneada");
-      } else if (error.response.status === 401) {
-        alert("Contraseña invalida");
-      }
+      error.response.data.message
+        ? alert(error.response.data.message)
+        : alert("Ocurrio un error intente nuevamente");
     }
   };
 };
