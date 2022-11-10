@@ -25,6 +25,7 @@ const PanelCompras = () => {
   const [buscarSelect, setBuscarSelect] = useState(true);
   const [cateSelect, setCateSelect] = useState(true);
 
+
   useEffect(() => {
     dispatch(yaLog(user.email));
     dispatch(getAllOrders(header.headers));
@@ -54,13 +55,33 @@ const PanelCompras = () => {
 
   const handleEstado = (id: string, newState: string) => {
     if (newState === "Completa") {
-      dispatch(cambiarEstadoOrdenCompleta(header.headers, id));
+      if (
+        window.confirm(
+          `¿Esta seguro de querer cambiar el estado de orden ${id} a ${newState}`
+        )
+      ) {
+        dispatch(cambiarEstadoOrdenCompleta(header.headers, id));
+      }
     } else if (newState === "Cancelada") {
-      dispatch(cambiarEstadoOrdenCancelada(header.headers, id));
+      if (
+        window.confirm(
+          `¿Esta seguro de querer cambiar el estado de orden ${id} a ${newState}`
+        )
+      ) {
+        dispatch(cambiarEstadoOrdenCancelada(header.headers, id));
+      }
     } else {
-      dispatch(cambiarEstadoOrden(header.headers, id, newState));
+      if (
+        window.confirm(
+          `¿Esta seguro de querer cambiar el estado de orden ${id} a ${newState}`
+        )
+      ) {
+        dispatch(cambiarEstadoOrden(header.headers, id, newState));
+      }
     }
   };
+
+  const handlePerfil = (id: string) => {};
 
   const handleSearchBy = (e: any) => {
     setSearchBy(e.target.value);
@@ -107,6 +128,7 @@ const PanelCompras = () => {
               <option value="Completa">Completa</option>
               <option value="Cancelada">Cancelada</option>
               <option value="Creada">Procesando</option>
+              <option value="Enviada">Despachada</option>
             </select>
           </div>
 
@@ -140,7 +162,7 @@ const PanelCompras = () => {
                   : data.state === "Cancelada"
                   ? "CANCELADA"
                   : data.state === "Enviada"
-                  ? "DESPACHADO"
+                  ? "DESPACHADA"
                   : "PROCENSANDO";
 
               const price = data.products?.reduce((prev, curr) => {
@@ -151,7 +173,13 @@ const PanelCompras = () => {
                   className="grid grid-cols-[1fr_1fr_.2fr_.4fr_2fr_1fr] gap-6 break-words py-2 pl-2 mt-8 border border-black rounded-lg items-center"
                   key={data._id}
                 >
-                  <p>{data.user}</p>
+                  <p
+                    onClick={() => {
+                      handlePerfil(data._id);
+                    }}
+                  >
+                    {data.user}
+                  </p>
                   <p>{data._id}</p>
                   <p>{price.toFixed(2)}</p>
                   <p className={`text-sm ${estilo}`}>{estado}</p>
@@ -179,7 +207,7 @@ const PanelCompras = () => {
                         onClick={() => handleDespachar(data._id)}
                         className="border border-black px-2 hover:bg-[#855C20] hover:text-white text-sm "
                       >
-                        Despachar
+                        DESPACHAR
                       </button>
                     )}
                   </div>

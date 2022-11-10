@@ -23,10 +23,8 @@ const MyAppointments = () => {
   //========================handlers================================
   const loadTurnos = () => {
     const aux = window.localStorage.getItem("user");
-
     if (aux) {
       const user = JSON.parse(aux);
-      console.log(user);
       dispatch(getAppointments(user._id));
     } else {
       return (
@@ -50,7 +48,7 @@ const MyAppointments = () => {
   //========================render========================
   return (
     <>
-      <div className="bg-white bg-sucursales-banner bg-no-repeat lg:pt-40 pt-28 pb-1 bg-cover h-screen">
+      <div className="bg-white bg-sucursales-banner bg-no-repeat lg:pt-40 pt-28 pb-1 bg-cover">
         <div className="s bg-white border-black rounded-xl lg:py-10 lg:mx-40 my-auto">
           <VscArrowLeft
             className=" ml-4 mt-3 h-6 w-6 fill-black"

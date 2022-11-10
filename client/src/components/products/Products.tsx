@@ -80,7 +80,7 @@ const Products = () => {
       firstPostIndex,
       lastPostIndex
     );
-    const resetPage: any = () => {
+    const resetPage = () => {
       setCurrentPage(1);
     };
 
@@ -142,7 +142,7 @@ const Products = () => {
                     />
                   )}
                 </div>
-                <OrderingByName hidden={hideAlfa} resetPage={resetPage} />
+                <OrderingByName hidden={hideAlfa} />
                 <div className="relative">
                   <p className="underline underline-offset-2">Precio</p>
                   {!hidePrecio ? (
@@ -163,7 +163,7 @@ const Products = () => {
                     />
                   )}
                 </div>
-                <OrderingByPrice hidden={hidePrecio} resetPage={resetPage} />
+                <OrderingByPrice hidden={hidePrecio} />
               </div>
             </div>
             {currentProducts?.map((data: any) => {

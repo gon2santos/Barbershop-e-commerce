@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1e31cf84.css",
+    "main.js": "/static/js/main.eb7d1efe.js",
+    "static/media/favorites.jpg": "/static/media/favorites.2dd5b4977c4f145346d4.jpg",
+    "static/media/sucursales-banner.jpg": "/static/media/sucursales-banner.1338ec00b1f289cd9aca.jpg",
+    "static/media/crear-categorias.png": "/static/media/crear-categorias.05b3a07eec023310de64.png",
+    "static/media/crear-modificar-producto.png": "/static/media/crear-modificar-producto.666c137cfe836b4b0a10.png",
+    "static/media/turnos-banner.jpg": "/static/media/turnos-banner.0c59c4fbc2c09bb8e511.jpg",
+    "static/media/carrito banner.png": "/static/media/carrito banner.0871e07513b95f4cfbce.png",
+    "static/media/banner-historial.png": "/static/media/banner-historial.d2b9795a2c07cdb2cd56.png",
+    "static/media/home-responsive.png": "/static/media/home-responsive.bf3f7283e6243f7692ea.png",
+    "static/media/Store-banner.png": "/static/media/Store-banner.20bb646d326a6192327e.png",
+    "static/media/landing-bg-img.png": "/static/media/landing-bg-img.f2fa9974e3306d3dd55a.png",
+    "static/media/bannerAdmin.png": "/static/media/bannerAdmin.38a15facdcdbb4e5e1ba.png",
+    "static/media/Logo.png": "/static/media/Logo.5c6a88bf10295b036d70.png",
+    "index.html": "/index.html",
+    "main.1e31cf84.css.map": "/static/css/main.1e31cf84.css.map",
+    "main.eb7d1efe.js.map": "/static/js/main.eb7d1efe.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1e31cf84.css",
+    "static/js/main.eb7d1efe.js"
+  ]
+}
