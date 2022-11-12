@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
+import Desarroladores from "./Desarroladeres";
 import Footer from "./Footer";
 
 export const buttonStyle =
@@ -33,7 +34,7 @@ const Home = () => {
       ) : (
         <p></p>
       )}
-
+      <Desarroladores />
       <div className="h-[75vh]">
         <Link
           className="bg-[#855C20] py-4 px-4 font-bold text-3xl lg:block absolute hidden left-16 bottom-48"
