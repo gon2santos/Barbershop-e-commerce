@@ -1,5 +1,5 @@
-# Barbershop-e-commerce
-A full stack e-commerce App, with local/Google signups, paypal integration, appointments system, email notifications, and more.
+# Barbershop e-commerce
+A full stack e-commerce React App, with local/Google signups, paypal integration, appointments system, email notifications, and more.
 
 <a href="https://github.com/gon2santos/Barbershop-e-commerce">
   <img align="center" src="https://github.com/gon2santos/gon2santos/blob/main/assets/Screenshot_2022-11-23_074858.png" />
